@@ -1,6 +1,7 @@
 import NavigationBar from "../Components/NavigationBar";
 import React from "react";
 import styled from "styled-components";
+import SearchBar from "../Components/Serach";
 
 const ContentWrapper = styled.div`
   padding: 20px; /* 내용에 여백 추가 */
@@ -19,7 +20,7 @@ const DBPage = () => {
     <PageContainer>
       <NavigationBar />
       <ContentWrapper>
-        <div>This is DB Page</div>
+        <SearchBar />
       </ContentWrapper>
     </PageContainer>
   );
