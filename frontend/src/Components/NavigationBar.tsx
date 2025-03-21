@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = styled.div`
   width: 200px; /* 왼쪽 고정 너비 */
@@ -29,11 +30,12 @@ const Button = styled.button`
 `;
 
 const NavigationBar = () => {
+  const navigate = useNavigate();
   return (
     <NavBar>
-      <button>회원 DB</button>
-      <button>회원 상세</button>
-      <button>통계</button>
+      <button onClick={() => navigate("/memberDB")}>회원 DB</button>
+      <button onClick={() => navigate("/memberDetail")}>회원 상세</button>
+      <button onClick={() => navigate("/statistics")}>통계</button>
     </NavBar>
   );
 };
