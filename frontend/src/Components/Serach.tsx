@@ -59,7 +59,7 @@ const locations = [
   "제주",
   "해외",
 ];
-const gender = ["전체", "남자", "여자"];
+const gender = ["전체", "남성", "여성"];
 const ios = ["전체", "아이폰", "안드로이드"];
 
 const SearchBar = () => {
