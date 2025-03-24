@@ -1,17 +1,18 @@
 import NavigationBar from "../Components/NavigationBar";
 import React from "react";
 import styled from "styled-components";
-import SearchBar from "../Components/Serach";
-
+import DBSearchBar from "../Components/DBSerach";
+import TotalMember from "../Components/TotalMembers";
+import MemberTable from "../Components/MemberDBTable";
 const ContentWrapper = styled.div`
-  padding: 20px; /* 내용에 여백 추가 */
+  padding: 20px;
   z-index: 1;
   position: relative;
   flex: 1;
 `;
 
 const PageContainer = styled.div`
-  display: flex; /* Flexbox 사용 */
+  display: flex;
 `;
 
 const DBPage = () => {
@@ -20,7 +21,9 @@ const DBPage = () => {
     <PageContainer>
       <NavigationBar />
       <ContentWrapper>
-        <SearchBar />
+        <DBSearchBar />
+        <TotalMember />
+        <MemberTable />
       </ContentWrapper>
     </PageContainer>
   );

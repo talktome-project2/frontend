@@ -62,7 +62,7 @@ const locations = [
 const gender = ["전체", "남성", "여성"];
 const ios = ["전체", "아이폰", "안드로이드"];
 
-const SearchBar = () => {
+const DBSearchBar = () => {
   const [selectedAge, setSelectedAge] = useState<string>("전체");
   const [selectedLocation, setSelectedLocation] = useState<string>("전체");
   const [selectedGender, setSelectedGender] = useState<string>("전체");
@@ -220,4 +220,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default DBSearchBar;
