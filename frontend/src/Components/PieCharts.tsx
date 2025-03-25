@@ -28,10 +28,6 @@ const ageData: PieChartProps = {
   series: [30, 30, 10, 20, 10],
   labels: ["20대", "30대", "40대", "50대", "60대"],
 };
-const loctionData: PieChartProps = {
-  series: [10, 20, 30],
-  labels: ["서울", "경기", "제주"],
-};
 
 const PieCharts = () => {
   return (
@@ -39,7 +35,6 @@ const PieCharts = () => {
       <PieChart data={platformData} />
       <PieChart data={genderData} />
       <PieChart data={ageData} />
-      <PieChart data={loctionData} />
     </PieBoard>
   );
 };

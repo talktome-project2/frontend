@@ -1,5 +1,7 @@
 import NavigationBar from "../Components/NavigationBar";
 import styled from "styled-components";
+import MemberSearchBar from "../Components/MemberSearch";
+
 const ContentWrapper = styled.div`
   padding: 20px; /* 내용에 여백 추가 */
   z-index: 1;
@@ -14,7 +16,9 @@ const DetailPage = () => {
   return (
     <PageContainer>
       <NavigationBar />
-      <ContentWrapper></ContentWrapper>
+      <ContentWrapper>
+        <MemberSearchBar />
+      </ContentWrapper>
     </PageContainer>
   );
 };

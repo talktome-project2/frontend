@@ -2,6 +2,8 @@ import NavigationBar from "../Components/NavigationBar";
 import styled from "styled-components";
 import NewUserChart from "../Components/NewUserChart";
 import PieCharts from "../Components/PieCharts";
+import RegionStaticTable from "../Components/MemberRegionTable";
+
 const ContentWrapper = styled.div`
   padding: 20px; /* 내용에 여백 추가 */
   z-index: 1;
@@ -20,6 +22,7 @@ const StatisticsPage = () => {
         <ContentWrapper>
           <NewUserChart />
           <PieCharts />
+          <RegionStaticTable />
         </ContentWrapper>
       </PageContainer>
     </>
