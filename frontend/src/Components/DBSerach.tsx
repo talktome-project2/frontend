@@ -62,6 +62,41 @@ const locations = [
 const gender = ["전체", "남성", "여성"];
 const ios = ["전체", "아이폰", "안드로이드"];
 
+type SearchItemProps = {
+  label: string;
+  array: string[];
+  selected: string;
+  field: string;
+  handler: (props: string) => void;
+};
+
+/*const CustomItem = ({
+  label,
+  array,
+  selected,
+  field,
+  handler,
+}: SearchItemProps) => {
+  return (
+    <SearchItem>
+      <label>{label}</label>
+      {array.map((element) => (
+        <Label key={element}>
+          <Checkbox
+            type="checkbox"
+            checked={selected === element}
+            onChange={() => {
+              handler(element);
+              handleChange(field, element);
+            }}
+          />
+          {element}
+        </Label>
+      ))}
+    </SearchItem>
+  );
+};*/
+
 const DBSearchBar = () => {
   const [selectedAge, setSelectedAge] = useState<string>("전체");
   const [selectedLocation, setSelectedLocation] = useState<string>("전체");
@@ -73,7 +108,6 @@ const DBSearchBar = () => {
   const [isDateSelected, setIsDateSelected] = useState(false);
   const [startDate, setStartDate] = useState(today); // 기본값: 오늘 날짜
   const [endDate, setEndDate] = useState(today); // 기본값: 오늘 날짜
-
   const [filters, setFilters] = useState({
     age: "", // 선택된 연령대 (예: "20대")
     location: "",
@@ -215,7 +249,7 @@ const DBSearchBar = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </SearchItem>
-      <button onClick={handleSearch}>선택</button>
+      <button onClick={handleSearch}>검색</button>
     </SearchContainer>
   );
 };

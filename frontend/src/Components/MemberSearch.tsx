@@ -37,11 +37,17 @@ const MemberSearchBar = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <SearchItem>
           <label> Id</label>
-          <input placeholder="enter Id" {...register("id")} />
+          <input
+            placeholder="enter Id"
+            {...register("id", { required: true })}
+          />
         </SearchItem>
         <SearchItem>
           <label>Email</label>
-          <input placeholder="enter Email" {...register("email")} />
+          <input
+            placeholder="enter Email"
+            {...register("email", { required: true })}
+          />
         </SearchItem>
         <button>검색</button>
       </form>
