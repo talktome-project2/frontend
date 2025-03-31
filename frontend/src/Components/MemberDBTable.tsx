@@ -46,7 +46,7 @@ const columns: GridColDef[] = [
   { field: "gender", headerName: "성별", width: 80 },
   { field: "region", headerName: "지역", width: 80 },
   { field: "platform", headerName: "platform", width: 80 },
-  { field: "joinDate", headerName: "가입날짜짜", width: 100 },
+  { field: "joinDate", headerName: "가입날짜", width: 100 },
   { field: "friends", headerName: "친구 수", width: 80 },
 ];
 

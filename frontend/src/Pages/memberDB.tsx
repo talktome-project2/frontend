@@ -16,7 +16,6 @@ const PageContainer = styled.div`
 `;
 
 const DBPage = () => {
-  console.log("DB ON~");
   return (
     <PageContainer>
       <NavigationBar />

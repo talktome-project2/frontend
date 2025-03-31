@@ -1,29 +1,7 @@
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
-
-const rows: GridRowsProp = [
-  {
-    id: 1,
-    Seoul: 1,
-    Busan: 2,
-    Daegu: 3,
-    Incheon: 4,
-    Gwangju: 5,
-    Daejeon: 6,
-    Ulsan: 7,
-    Sejong: 8,
-    Gyeonggi: 9,
-    Gangwon: 10,
-    Chungbuk: 11,
-    Chungnam: 12,
-    Jeonbuk: 13,
-    Jeonnam: 14,
-    Gyeongbuk: 15,
-    Gyeongnam: 16,
-    Jeju: 17,
-    Overseas: 18,
-  },
-];
+import { regionGroupCount } from "../Recoils/selectors/SetStatisticAtom";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 const columns: GridColDef[] = [
   { field: "Seoul", headerName: "서울", width: 50 },
@@ -52,6 +30,14 @@ const DBBoard = styled.div`
 `;
 
 const RegionStaticTable = () => {
+  const regionAtom = useRecoilValueLoadable(regionGroupCount);
+  console.log(Object.values(regionAtom));
+  const rows: GridRowsProp = [
+    {
+      id: 1,
+      ...regionAtom.contents,
+    },
+  ];
   return (
     <DBBoard>
       <DataGrid rows={rows} columns={columns} />
