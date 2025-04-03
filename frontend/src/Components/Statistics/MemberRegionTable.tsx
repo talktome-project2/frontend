@@ -1,6 +1,6 @@
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
-import { regionGroupCount } from "../Recoils/selectors/SetStatisticAtom";
+import { regionGroupCount } from "../../Recoils/selectors/SetStatisticAtom";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 const columns: GridColDef[] = [
@@ -31,7 +31,6 @@ const DBBoard = styled.div`
 
 const RegionStaticTable = () => {
   const regionAtom = useRecoilValueLoadable(regionGroupCount);
-  console.log(Object.values(regionAtom));
   const rows: GridRowsProp = [
     {
       id: 1,

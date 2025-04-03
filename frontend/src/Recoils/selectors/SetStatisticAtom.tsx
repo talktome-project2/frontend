@@ -4,6 +4,7 @@ import {
   genderCount,
   platformCount,
   regionCount,
+  newUserCount,
 } from "../atoms/StatisticAtom";
 
 // 연령대별 값을 받아와서 ageCount atom을 업데이트하는 selector
@@ -133,6 +134,37 @@ export const regionGroupCount = selector({
     set(regionCount, (prevRegionCount) => ({
       ...prevRegionCount, // 기존 값 유지
       ...newValue, // 새로운 값으로 업데이트
+    }));
+  },
+});
+
+export const newUserGroupCount = selector({
+  key: "newUserGroupCount",
+  get: async () => {
+    const today = new Date();
+    const newMembersDateGroups: string[] = [];
+    const newDay = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
+    const counts: { [key: string]: number } = {};
+
+    for (let i = 7; i >= 1; i--) {
+      const pastDate = new Date(today);
+      pastDate.setDate(today.getDate() - i);
+      const formatedPastDate = pastDate.toISOString().split("T")[0]; //get data
+      const response = await fetch(
+        `http://54.180.234.254:3000/manager/count/datefeed?date=${encodeURIComponent(
+          formatedPastDate
+        )}`
+      );
+      const result = await response.json();
+      const count = result.data[0]["count(*)"];
+      counts[newDay[7 - i]] = count;
+    }
+    return counts;
+  },
+  set: ({ set }, newValue) => {
+    set(platformCount, (prevPlatformCount) => ({
+      ...prevPlatformCount,
+      ...newValue,
     }));
   },
 });

@@ -1,5 +1,6 @@
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
+import { Typography } from "@mui/material";
 
 type Member = {
   id: string;
@@ -55,10 +56,20 @@ const DBBoard = styled.div`
   width: 95%;
 `;
 const MemberDBTable = () => {
+  const totalFriends = rows.length;
+
   return (
-    <DBBoard>
-      <DataGrid rows={rows} columns={columns} />
-    </DBBoard>
+    <>
+      <Typography
+        variant="h6"
+        sx={{ textAlign: "center", fontWeight: "bold", mb: 2 }}
+      >
+        전체 인원 (총 {totalFriends}명)
+      </Typography>
+      <DBBoard>
+        <DataGrid rows={rows} columns={columns} />
+      </DBBoard>
+    </>
   );
 };
 

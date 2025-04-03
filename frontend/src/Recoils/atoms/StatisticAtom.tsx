@@ -89,3 +89,16 @@ export const regionCount = atom<Region>({
     Overseas: 0,
   },
 });
+
+export const newUserCount = atom({
+  key: "newUser",
+  default: {
+    day1: 0,
+    day2: 1,
+    day3: 2,
+    day4: 3,
+    day5: 4,
+    day6: 5,
+    day7: 6,
+  },
+});

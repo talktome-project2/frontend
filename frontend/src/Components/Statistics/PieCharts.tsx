@@ -6,7 +6,8 @@ import {
   ageGroupCount,
   genderGroupCount,
   platformGroupCount,
-} from "../Recoils/selectors/SetStatisticAtom";
+} from "../../Recoils/selectors/SetStatisticAtom";
+
 const PieBoard = styled.div`
   display: flex;
   justify-content: space-around;

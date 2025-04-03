@@ -1,8 +1,8 @@
 import NavigationBar from "../Components/NavigationBar";
 import styled from "styled-components";
-import NewUserChart from "../Components/NewUserChart";
-import PieCharts from "../Components/PieCharts";
-import RegionStaticTable from "../Components/MemberRegionTable";
+import NewUserChart from "../Components/Statistics/NewUserChart";
+import PieCharts from "../Components/Statistics/PieCharts";
+import RegionStaticTable from "../Components/Statistics/MemberRegionTable";
 
 const ContentWrapper = styled.div`
   padding: 20px;

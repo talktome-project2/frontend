@@ -1,9 +1,10 @@
 import NavigationBar from "../Components/NavigationBar";
 import React from "react";
 import styled from "styled-components";
-import DBSearchBar from "../Components/DBSerach";
-import TotalMember from "../Components/TotalMembers";
-import MemberTable from "../Components/MemberDBTable";
+import DBSearchBar from "../Components/MemberDB/DBSerach";
+import TotalMember from "../Components/MemberDB/TotalMembers";
+import MemberDBTable from "../Components/MemberDB/MemberDBTable";
+
 const ContentWrapper = styled.div`
   padding: 20px;
   z-index: 1;
@@ -22,7 +23,7 @@ const DBPage = () => {
       <ContentWrapper>
         <DBSearchBar />
         <TotalMember />
-        <MemberTable />
+        <MemberDBTable />
       </ContentWrapper>
     </PageContainer>
   );
