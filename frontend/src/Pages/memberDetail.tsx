@@ -1,6 +1,6 @@
 import NavigationBar from "../Components/NavigationBar";
 import styled from "styled-components";
-import MemberSearchBar from "../Components/MemberDB/MemberSearch";
+import MemberSearchBar from "../Components/MemberDetail/MemberSearch";
 import MemberDetailDBTable from "../Components/MemberDetail/MemeberDetailDBTable";
 import UserInfo from "../Components/MemberDetail/MemberDetailInfo";
 import BlockedList from "../Components/MemberDetail/Bloked";
@@ -16,10 +16,15 @@ const PageContainer = styled.div`
   display: flex; /* Flexbox 사용 */
 `;
 
+const PageSpace = styled.div`
+  display: flex;
+  margin-left: 300px;
+`;
 const DetailPage = () => {
   return (
     <PageContainer>
       <NavigationBar />
+      <PageSpace />
       <ContentWrapper>
         <MemberSearchBar />
         <UserInfo />

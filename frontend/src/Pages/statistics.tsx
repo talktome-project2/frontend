@@ -10,7 +10,10 @@ const ContentWrapper = styled.div`
   position: relative;
   flex: 1;
 `;
-
+const PageSpace = styled.div`
+  display: flex;
+  margin-left: 300px;
+`;
 const PageContainer = styled.div`
   display: flex;
 `;
@@ -19,6 +22,7 @@ const StatisticsPage = () => {
     <>
       <PageContainer>
         <NavigationBar />
+        <PageSpace />
         <ContentWrapper>
           <NewUserChart />
           <PieCharts />

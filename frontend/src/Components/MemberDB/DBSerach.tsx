@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import {
+  selectedResult,
+  IselctionType,
+} from "../../Recoils/atoms/MemberDBSelectAtom";
 
 // 스타일 정의
 const SearchContainer = styled.div`
@@ -35,8 +40,11 @@ const Select = styled.select`
   margin-left: 8px;
   padding: 5px;
 `;
-
-// 나이대 & 지역 목록
+const platformMapping: { [key: string]: string } = {
+  아이폰: "iOS",
+  안드로이드: "android",
+  전체: "전체",
+};
 const ages = ["전체", "20대", "30대", "40대", "50대", "60대"];
 const locations = [
   "전체",
@@ -60,94 +68,53 @@ const locations = [
   "해외",
 ];
 const gender = ["전체", "남성", "여성"];
-const ios = ["전체", "아이폰", "안드로이드"];
-
-type SearchItemProps = {
-  label: string;
-  array: string[];
-  selected: string;
-  field: string;
-  handler: (props: string) => void;
-};
-
-/*const CustomItem = ({
-  label,
-  array,
-  selected,
-  field,
-  handler,
-}: SearchItemProps) => {
-  return (
-    <SearchItem>
-      <label>{label}</label>
-      {array.map((element) => (
-        <Label key={element}>
-          <Checkbox
-            type="checkbox"
-            checked={selected === element}
-            onChange={() => {
-              handler(element);
-              handleChange(field, element);
-            }}
-          />
-          {element}
-        </Label>
-      ))}
-    </SearchItem>
-  );
-};*/
+const platform = ["전체", "아이폰", "안드로이드"];
 
 const DBSearchBar = () => {
-  const [selectedAge, setSelectedAge] = useState<string>("전체");
-  const [selectedLocation, setSelectedLocation] = useState<string>("전체");
-  const [selectedGender, setSelectedGender] = useState<string>("전체");
-  const [selectedIos, setselectedIos] = useState<string>("전체");
+  const [filterAtom, setFilterAtom] = useRecoilState(selectedResult);
+  const today = new Date().toISOString().split("T")[0];
 
-  const today = new Date().toISOString().split("T")[0]; // 오늘 날짜 (YYYY-MM-DD)
-  const [isAllSelected, setIsAllSelected] = useState(false);
-  const [isDateSelected, setIsDateSelected] = useState(false);
-  const [startDate, setStartDate] = useState(today); // 기본값: 오늘 날짜
-  const [endDate, setEndDate] = useState(today); // 기본값: 오늘 날짜
-  const [filters, setFilters] = useState({
-    age: "", // 선택된 연령대 (예: "20대")
-    location: "",
-    gender: "", // 선택된 지역
-    platform: "",
-    startDate: today, // 기본값: 오늘 날짜
-    endDate: today, // 기본값: 오늘 날짜
+  const [filters, setFilters] = useState<IselctionType>({
+    age: "전체",
+    location: "전체",
+    gender: "전체",
+    platform: "전체",
+    startDate: "2020-01-01",
+    endDate: today,
   });
-  // ✅ 체크박스 클릭 시 하나만 선택되도록 설정
-  const handleAgeCheckboxChange = (age: string) => {
-    setSelectedAge(age);
-  };
 
-  const handleGenderCheckboxChange = (gender: string) => {
-    setSelectedGender(gender);
-  };
+  const [isAllSelected, setIsAllSelected] = useState(true);
+  const [isDateSelected, setIsDateSelected] = useState(false);
 
-  const handleIosCheckboxChange = (ios: string) => {
-    setselectedIos(ios);
-  };
-  const handleAllCheck = () => {
-    setIsAllSelected(!isAllSelected);
-    setIsDateSelected(false);
-  };
+  // 상태 변경 시 Recoil 반영
+  useEffect(() => {
+    setFilterAtom(filters);
+  }, [filters, setFilterAtom]);
 
-  const handleDateCheck = () => {
-    setIsDateSelected(!isDateSelected);
-    setIsAllSelected(false);
-  };
-  // ✅ 지역 선택 시 상태 업데이트
-  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLocation(e.target.value);
-  };
   const handleChange = (field: string, value: string) => {
     setFilters((prev) => ({ ...prev, [field]: value }));
   };
-  const handleSearch = () => {
-    console.log("현재 선택된 검색 조건:", filters);
-    // 여기서 API 호출 or 검색 로직 실행
+
+  const handleAllCheck = () => {
+    setIsAllSelected(true);
+    setIsDateSelected(false);
+    setFilters((prev) => ({
+      ...prev,
+      startDate: "2020-01-01",
+      endDate: today,
+    }));
   };
+
+  const handleDateCheck = () => {
+    setIsDateSelected(true);
+    setIsAllSelected(false);
+    setFilters((prev) => ({
+      ...prev,
+      startDate: today,
+      endDate: today,
+    }));
+  };
+
   return (
     <SearchContainer>
       <h3>검색 항목</h3>
@@ -157,11 +124,8 @@ const DBSearchBar = () => {
           <Label key={age}>
             <Checkbox
               type="checkbox"
-              checked={selectedAge === age}
-              onChange={() => {
-                handleAgeCheckboxChange(age);
-                handleChange("age", age);
-              }}
+              checked={filters.age === age}
+              onChange={() => handleChange("age", age)}
             />
             {age}
           </Label>
@@ -170,48 +134,39 @@ const DBSearchBar = () => {
       <SearchItem>
         <label>지역</label>
         <Select
-          value={selectedLocation}
-          onChange={(location) => {
-            handleOptionChange(location);
-            handleChange("location", location.target.value);
-          }}
+          value={filters.location}
+          onChange={(e) => handleChange("location", e.target.value)}
         >
-          {locations.map((location, index) => (
-            <option key={index} value={location}>
-              {location}
+          {locations.map((loc, index) => (
+            <option key={index} value={loc}>
+              {loc}
             </option>
           ))}
         </Select>
       </SearchItem>
       <SearchItem>
         <label>성별</label>
-        {gender.map((gender) => (
-          <Label key={gender}>
+        {gender.map((g) => (
+          <Label key={g}>
             <Checkbox
               type="checkbox"
-              checked={selectedGender === gender}
-              onChange={() => {
-                handleGenderCheckboxChange(gender);
-                handleChange("gender", gender);
-              }}
+              checked={filters.gender === g}
+              onChange={() => handleChange("gender", g)}
             />
-            {gender}
+            {g}
           </Label>
         ))}
       </SearchItem>
       <SearchItem>
         <label>플랫폼</label>
-        {ios.map((ios) => (
-          <Label key={ios}>
+        {platform.map((i) => (
+          <Label key={i}>
             <Checkbox
               type="checkbox"
-              checked={selectedIos === ios}
-              onChange={() => {
-                handleIosCheckboxChange(ios);
-                handleChange("platform", ios);
-              }}
+              checked={filters.platform === platformMapping[i]}
+              onChange={() => handleChange("platform", platformMapping[i])}
             />
-            {ios}
+            {i}
           </Label>
         ))}
       </SearchItem>
@@ -223,33 +178,24 @@ const DBSearchBar = () => {
           onChange={handleAllCheck}
         />
         <label>전체</label>
-
         <input
           type="checkbox"
           checked={isDateSelected}
-          onChange={(e) => {
-            handleDateCheck();
-            handleChange("startDate", e.target.value);
-          }}
+          onChange={handleDateCheck}
         />
         <label>날짜 선택 :</label>
-
         <input
           type="date"
-          value={startDate}
-          onChange={(e) => {
-            setStartDate(e.target.value);
-            handleChange("endDate", e.target.value);
-          }}
+          value={filters.startDate}
+          onChange={(e) => handleChange("startDate", e.target.value)}
         />
         <span> ~ </span>
         <input
           type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          value={filters.endDate}
+          onChange={(e) => handleChange("endDate", e.target.value)}
         />
       </SearchItem>
-      <button onClick={handleSearch}>검색</button>
     </SearchContainer>
   );
 };

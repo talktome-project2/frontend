@@ -15,11 +15,15 @@ const ContentWrapper = styled.div`
 const PageContainer = styled.div`
   display: flex;
 `;
-
+const PageSpace = styled.div`
+  display: flex;
+  margin-left: 300px;
+`;
 const DBPage = () => {
   return (
     <PageContainer>
       <NavigationBar />
+      <PageSpace />
       <ContentWrapper>
         <DBSearchBar />
         <TotalMember />

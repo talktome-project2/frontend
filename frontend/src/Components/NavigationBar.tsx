@@ -12,6 +12,7 @@ const NavBar = styled.div`
   align-items: stretch;
   padding: 20px;
   gap: 20px;
+  position: fixed;
 `;
 
 const Button = styled.button`
