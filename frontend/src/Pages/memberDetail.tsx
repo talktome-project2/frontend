@@ -4,6 +4,7 @@ import MemberSearchBar from "../Components/MemberDetail/MemberSearch";
 import MemberDetailDBTable from "../Components/MemberDetail/MemeberDetailDBTable";
 import UserInfo from "../Components/MemberDetail/MemberDetailInfo";
 import BlockedList from "../Components/MemberDetail/Bloked";
+import PhotoContainer from "../Components/MemberDetail/PhotoContainer";
 
 const ContentWrapper = styled.div`
   padding: 20px; /* 내용에 여백 추가 */
@@ -27,6 +28,7 @@ const DetailPage = () => {
       <PageSpace />
       <ContentWrapper>
         <MemberSearchBar />
+        <PhotoContainer />
         <UserInfo />
         <MemberDetailDBTable />
         <BlockedList />
