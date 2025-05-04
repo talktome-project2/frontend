@@ -28,7 +28,7 @@ const BlockedByMe = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://54.180.234.254:3000/manager/friend/block/me/${encodeURIComponent(
+          `http://3.37.213.52:3000/manager/friend/block/me/${encodeURIComponent(
             memberInformation.id
           )}`
         );
@@ -86,7 +86,9 @@ const BlockedByMe = () => {
 
       <DBBoard>
         {isLoading ? (
-          <CircularProgress sx={{ display: "block", margin: "auto" }} />
+          <Typography sx={{ textAlign: "center", color: "gray" }}>
+            차단한 사람이 없습니다
+          </Typography>
         ) : (
           <DataGrid rows={rows} columns={columns} getRowId={(row) => row.id} />
         )}

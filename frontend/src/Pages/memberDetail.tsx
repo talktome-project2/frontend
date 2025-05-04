@@ -7,14 +7,14 @@ import BlockedList from "../Components/MemberDetail/Bloked";
 import PhotoContainer from "../Components/MemberDetail/PhotoContainer";
 
 const ContentWrapper = styled.div`
-  padding: 20px; /* 내용에 여백 추가 */
+  padding: 20px;
   z-index: 1;
   position: relative;
   flex: 1;
 `;
 
 const PageContainer = styled.div`
-  display: flex; /* Flexbox 사용 */
+  display: flex;
 `;
 
 const PageSpace = styled.div`

@@ -45,7 +45,7 @@ const UserInfo: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://54.180.234.254:3000/manager/member/id/${encodeURIComponent(
+          `http://3.37.213.52:3000/manager/member/id/${encodeURIComponent(
             memberInformation.id
           )}`
         );

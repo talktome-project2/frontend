@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { memberInfo } from "../../Recoils/atoms/MemberDeatilAtom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 const SearchContainer = styled.div`
   background-color: white;
   border: 1px solid #ddd;
@@ -34,12 +33,8 @@ const MemberSearchBar = () => {
     setState((prevState) => ({
       ...prevState,
       id: data.id,
-      email: data.email,
     }));
   };
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
   return (
     <SearchContainer>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,13 +43,6 @@ const MemberSearchBar = () => {
           <input
             placeholder="enter Id"
             {...register("id", { required: true })}
-          />
-        </SearchItem>
-        <SearchItem>
-          <label>Email</label>
-          <input
-            placeholder="enter Email"
-            {...register("email", { required: true })}
           />
         </SearchItem>
         <button>검색</button>

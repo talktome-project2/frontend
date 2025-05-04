@@ -18,7 +18,7 @@ const PhotoContainer = () => {
 
       try {
         const resProfile = await fetch(
-          `http://54.180.234.254:3000/file/member/${encodeURIComponent(
+          `http://3.37.213.52:3000/file/member/${encodeURIComponent(
             memberId.id
           )}/profile`
         );
@@ -32,7 +32,7 @@ const PhotoContainer = () => {
       for (let i = 1; i <= 3; i++) {
         try {
           const res = await fetch(
-            `http://54.180.234.254:3000/file/member/${encodeURIComponent(
+            `http://3.37.213.52:3000/file/member/${encodeURIComponent(
               memberId.id
             )}/seq?seq=${i - 1}`
           );

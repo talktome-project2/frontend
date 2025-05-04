@@ -5,7 +5,6 @@ import { useRecoilValue } from "recoil";
 
 const NewUserChart = () => {
   const today = new Date();
-  const formattedToday = today.toISOString().split("T")[0]; // 2025-03-31
 
   const dates: string[] = []; // 1주일 날짜 배열
 
@@ -17,8 +16,7 @@ const NewUserChart = () => {
     const day = pastDate.getDate().toString().padStart(2, "0");
     dates.push(`${month}.${day}`);
   }
-
-  // Recoil selector에서 신규 유입자 데이터를 가져오기
+  const textDates = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
   const newUserCounts = useRecoilValue(newUserGroupCount);
 
   const [state, setState] = useState({
@@ -31,7 +29,7 @@ const NewUserChart = () => {
     options: {
       chart: {
         height: 350,
-        type: "line" as const, // 'line'을 명시적으로 타입으로 지정
+        type: "line" as const,
         zoom: {
           enabled: false,
         },
@@ -40,7 +38,7 @@ const NewUserChart = () => {
         enabled: false,
       },
       stroke: {
-        curve: "straight" as "straight", // 'smooth'를 명시적으로 타입으로 설정
+        curve: "straight" as "straight",
       },
       title: {
         text: "10일간 신규 유입자 추이",
@@ -69,13 +67,12 @@ const NewUserChart = () => {
         series: [
           {
             name: "신규 유입자",
-            data: dates.map((date) => newUserCounts[date] || 0), // 날짜에 맞는 데이터
+            data: textDates.map((date) => newUserCounts[date] || 0),
           },
         ],
       }));
     }
-    // 빈 배열을 의존성 배열로 전달하여 처음 렌더링될 때만 실행되도록 설정
-  }, [newUserCounts]); // newUserCounts가 변경될 때만 실행되도록
+  }, [newUserCounts]);
 
   return (
     <div id="chart">

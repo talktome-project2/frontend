@@ -16,7 +16,7 @@ export const ageGroupCount = selector({
     // 각 연령대별 API 호출
     for (const ageGroup of ageGroups) {
       const response = await fetch(
-        `http://54.180.234.254:3000/manager/count/age?age=${encodeURIComponent(
+        `http://3.37.213.52:3000/manager/count/age?age=${encodeURIComponent(
           ageGroup
         )}`
       );
@@ -43,7 +43,7 @@ export const genderGroupCount = selector({
     const counts: { [key: string]: number } = {}; // key: string, value: number 형태로 타입 정의
     for (const genderGroup of genderGroups) {
       const response = await fetch(
-        `http://54.180.234.254:3000/manager/count/${encodeURIComponent(
+        `http://3.37.213.52:3000/manager/count/${encodeURIComponent(
           genderGroup
         )}`
       );
@@ -71,9 +71,7 @@ export const platformGroupCount = selector({
 
     for (const platform of platformGroups) {
       const response = await fetch(
-        `http://54.180.234.254:3000/manager/count/${encodeURIComponent(
-          platform
-        )}`
+        `http://3.37.213.52:3000/manager/count/${encodeURIComponent(platform)}`
       );
       const result = await response.json();
       const count = result.data[0]["count(*)"];
@@ -118,7 +116,7 @@ export const regionGroupCount = selector({
     const counts: { [key: string]: number } = {};
     for (const region of regionGroups) {
       const response = await fetch(
-        `http://54.180.234.254:3000/manager/count/region?region=${encodeURIComponent(
+        `http://3.37.213.52:3000/manager/count/region?region=${encodeURIComponent(
           region.urlKey
         )}`
       );
@@ -151,7 +149,7 @@ export const newUserGroupCount = selector({
       pastDate.setDate(today.getDate() - i);
       const formatedPastDate = pastDate.toISOString().split("T")[0]; //get data
       const response = await fetch(
-        `http://54.180.234.254:3000/manager/count/datefeed?date=${encodeURIComponent(
+        `http://3.37.213.52:3000/manager/count/datefeed?date=${encodeURIComponent(
           formatedPastDate
         )}`
       );
@@ -159,6 +157,7 @@ export const newUserGroupCount = selector({
       const count = result.data[0]["count(*)"];
       counts[newDay[7 - i]] = count;
     }
+    console.log("counts: ", counts);
     return counts;
   },
   set: ({ set }, newValue) => {

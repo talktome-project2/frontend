@@ -29,7 +29,7 @@ const MemberDetailDBTable = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://54.180.234.254:3000/manager/friend/accept/${encodeURIComponent(
+          `http://3.37.213.52:3000/manager/friend/accept/${encodeURIComponent(
             memberInformation.id
           )}`
         );
@@ -91,7 +91,13 @@ const MemberDetailDBTable = () => {
         친구 리스트 (총 {totalFriends}명)
       </Typography>
       <DBBoard>
-        <DataGrid rows={rows} columns={columns} loading={isLoading} />
+        {isLoading ? (
+          <Typography sx={{ textAlign: "center", color: "gray" }}>
+            친구 리스트 정보가 없습니다
+          </Typography>
+        ) : (
+          <DataGrid rows={rows} columns={columns} loading={isLoading} />
+        )}
       </DBBoard>
     </>
   );

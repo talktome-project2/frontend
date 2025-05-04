@@ -37,6 +37,8 @@ const NavigationBar = () => {
       <button onClick={() => navigate("/memberDB")}>회원 DB</button>
       <button onClick={() => navigate("/memberDetail")}>회원 상세</button>
       <button onClick={() => navigate("/statistics")}>통계</button>
+      <button onClick={() => navigate("/reports")}>신고 접수</button>
+      <button onClick={() => navigate("/noticeBoard")}>공지사항</button>
     </NavBar>
   );
 };

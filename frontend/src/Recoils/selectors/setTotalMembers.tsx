@@ -6,7 +6,7 @@ export const allMemberInfo = selector<Member[]>({
   key: "allMemberInfo",
   get: async ({ get }) => {
     try {
-      const response = await fetch("http://54.180.234.254:3000/manager/feed");
+      const response = await fetch("http://3.37.213.52:3000/manager/feed");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
