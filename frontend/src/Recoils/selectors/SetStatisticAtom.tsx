@@ -157,7 +157,6 @@ export const newUserGroupCount = selector({
       const count = result.data[0]["count(*)"];
       counts[newDay[7 - i]] = count;
     }
-    console.log("counts: ", counts);
     return counts;
   },
   set: ({ set }, newValue) => {

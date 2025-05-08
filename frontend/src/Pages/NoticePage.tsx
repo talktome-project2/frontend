@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import NavigationBar from "../Components/NavigationBar";
+import NoticeTable from "../Components/Notice/NoticeTable";
 
 const PageContainer = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const NoticePage = () => {
       <PageContainer>
         <NavigationBar />
         <PageSpace />
-        <div>NoticePage</div>
+        <NoticeTable />
       </PageContainer>
     </>
   );

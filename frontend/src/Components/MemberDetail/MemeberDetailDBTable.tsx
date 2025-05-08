@@ -10,14 +10,20 @@ type Friend = {
   id: string;
   email: string;
 };
-
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* 요소 사이 간격 */
+`;
 const DBBoard = styled.div`
   height: 300px;
-  width: 40%;
+
   margin: auto;
 `;
-
-const MemberDetailDBTable = () => {
+type Props = {
+  SearchId?: string;
+};
+const MemberDetailDBTable = ({ SearchId }: Props) => {
   const navigate = useNavigate();
   const memberInformation = useRecoilValue(memberInfo);
   const [rows, setRows] = useState<Friend[]>([]);
@@ -25,14 +31,25 @@ const MemberDetailDBTable = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!memberInformation.id) return;
+    const targetId = SearchId || memberInformation.id;
+
+    if (!targetId) return;
+    let response;
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://3.37.213.52:3000/manager/friend/accept/${encodeURIComponent(
-            memberInformation.id
-          )}`
-        );
+        if (SearchId) {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/accept/${encodeURIComponent(
+              SearchId
+            )}`
+          );
+        } else {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/accept/${encodeURIComponent(
+              memberInformation.id
+            )}`
+          );
+        }
         const data = await response.json();
         const result = data.data;
         console.log(result);
@@ -56,7 +73,7 @@ const MemberDetailDBTable = () => {
     };
 
     fetchData();
-  }, [memberInformation]);
+  }, [memberInformation, SearchId]);
 
   useEffect(() => {
     setTotalFriends(rows.length);
@@ -74,7 +91,7 @@ const MemberDetailDBTable = () => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={() => navigate(`/friend/${params.row.id}`)}
+          onClick={() => navigate(`/memberDetail/${params.row.id}`)}
         >
           상세
         </Button>
@@ -83,7 +100,7 @@ const MemberDetailDBTable = () => {
   ];
 
   return (
-    <>
+    <PageContainer>
       <Typography
         variant="h6"
         sx={{ textAlign: "center", fontWeight: "bold", mb: 2 }}
@@ -99,7 +116,7 @@ const MemberDetailDBTable = () => {
           <DataGrid rows={rows} columns={columns} loading={isLoading} />
         )}
       </DBBoard>
-    </>
+    </PageContainer>
   );
 };
 

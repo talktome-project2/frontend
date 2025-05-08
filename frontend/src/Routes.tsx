@@ -6,7 +6,7 @@ import DBPage from "./Pages/memberDB";
 import LandingPage from "./Pages/LandingPage";
 import ReportPage from "./Pages/ReportPage";
 import NoticePage from "./Pages/NoticePage";
-
+import IndividualDetailPage from "./Pages/IndividualDetailPage";
 const RoutersManagement = () => {
   return (
     <Router>
@@ -16,7 +16,9 @@ const RoutersManagement = () => {
         <Route path="/memberDB" element={<DBPage />} />
         <Route path="/memberDetail" element={<DetailPage />} />
         <Route path="/reports" element={<ReportPage />} />
+        <Route path="/reports/:id" element={<IndividualDetailPage />} />
         <Route path="/noticeBoard" element={<NoticePage />} />
+        <Route path="/memberDetail/:id" element={<IndividualDetailPage />} />
       </Routes>
     </Router>
   );

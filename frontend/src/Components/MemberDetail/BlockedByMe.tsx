@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Button, Typography, CircularProgress } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { memberInfo } from "../../Recoils/atoms/MemberDeatilAtom";
@@ -11,27 +11,41 @@ const DBBoard = styled.div`
   width: 60vh;
   margin: auto;
 `;
-
-const BlockedByMe = () => {
+type Props = {
+  SearchId?: string;
+};
+const BlockedByMe = ({ SearchId }: Props) => {
   const navigate = useNavigate();
   const memberInformation = useRecoilValue(memberInfo);
   const [rows, setRows] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!memberInformation.id) {
+    const target = SearchId || memberInformation.id;
+
+    if (!target) {
       console.log("memberInformation.id 없음, 데이터 요청 취소");
       return;
     }
 
     console.log("memberInformation Id : " + memberInformation.id);
+    let response;
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://3.37.213.52:3000/manager/friend/block/me/${encodeURIComponent(
-            memberInformation.id
-          )}`
-        );
+        if (SearchId) {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/block/me/${encodeURIComponent(
+              SearchId
+            )}`
+          );
+        } else {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/block/me/${encodeURIComponent(
+              memberInformation.id
+            )}`
+          );
+        }
+
         const data = await response.json();
         const result = data.data;
         console.log("받은 데이터:", result);
@@ -53,7 +67,7 @@ const BlockedByMe = () => {
     };
 
     fetchData();
-  }, [memberInformation]); // ✅ memberInformation이 변경될 때마다 실행
+  }, [memberInformation, SearchId]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },

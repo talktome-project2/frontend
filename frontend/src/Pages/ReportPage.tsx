@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import NavigationBar from "../Components/NavigationBar";
+import ReportedMemberTable from "../Components/Report/ReportedMemberTable";
 
 const PageContainer = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const ReportPage = () => {
       <PageContainer>
         <NavigationBar />
         <PageSpace />
+        <ReportedMemberTable />
       </PageContainer>
     </>
   );

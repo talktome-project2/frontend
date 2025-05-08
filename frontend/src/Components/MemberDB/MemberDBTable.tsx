@@ -63,7 +63,7 @@ const MemberDBTable = () => {
 
   // 로딩 상태 확인
   if (totalMember.length === 0) {
-    return <CircularProgress />; // 로딩 중 표시
+    return <CircularProgress />;
   }
 
   const filteredMembers = totalMember.filter((member) => {

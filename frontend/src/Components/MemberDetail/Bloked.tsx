@@ -8,12 +8,14 @@ const Container = styled.div`
   gap: 0; // 간격 조정 (원하는 크기로 변경 가능)
   width: 100%; // 전체 너비 사용
 `;
-
-const BlockedList = () => {
+type Props = {
+  SearchId?: string;
+};
+const BlockedList = ({ SearchId }: Props) => {
   return (
     <Container>
-      <BlockedByMe />
-      <BlockedMe />
+      <BlockedByMe SearchId={SearchId} />
+      <BlockedMe SearchId={SearchId} />
     </Container>
   );
 };

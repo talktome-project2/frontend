@@ -21,27 +21,40 @@ const DBBoard = styled.div`
   width: 60vh;
   margin: auto;
 `;
-
-const BlockedMe = () => {
+type Props = {
+  SearchId?: string;
+};
+const BlockedMe = ({ SearchId }: Props) => {
   const navigate = useNavigate();
   const memberInformation = useRecoilValue(memberInfo);
   const [rows, setRows] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!memberInformation.id) {
+    const target = SearchId || memberInformation.id;
+    if (!target) {
       console.log("memberInformation.id 없음, 데이터 요청 취소");
       return;
     }
 
     console.log("memberInformation Id : " + memberInformation.id);
+    let response;
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://3.37.213.52:3000/manager/friend/block/other/${encodeURIComponent(
-            memberInformation.id
-          )}`
-        );
+        if (SearchId) {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/block/other/${encodeURIComponent(
+              SearchId
+            )}`
+          );
+        } else {
+          response = await fetch(
+            `http://3.37.213.52:3000/manager/friend/block/other/${encodeURIComponent(
+              memberInformation.id
+            )}`
+          );
+        }
+
         const data = await response.json();
         const result = data.data;
         console.log("받은 데이터 BlockedMe  :", result);
@@ -63,7 +76,7 @@ const BlockedMe = () => {
     };
 
     fetchData();
-  }, [memberInformation]); // ✅ memberInformation이 변경될 때마다 실행
+  }, [memberInformation, SearchId]); // ✅ memberInformation이 변경될 때마다 실행
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
@@ -77,7 +90,7 @@ const BlockedMe = () => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={() => navigate(`/friend/${params.row.id}`)}
+          onClick={() => navigate(`/memberDetail/${params.row.id}`)}
         >
           상세
         </Button>

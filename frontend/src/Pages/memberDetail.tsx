@@ -30,7 +30,7 @@ const DetailPage = () => {
         <MemberSearchBar />
         <PhotoContainer />
         <UserInfo />
-        <MemberDetailDBTable />
+        <MemberDetailDBTable SearchId="" />
         <BlockedList />
       </ContentWrapper>
     </PageContainer>
