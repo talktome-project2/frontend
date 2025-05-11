@@ -9,6 +9,7 @@ import NoticePage from "./Pages/NoticePage";
 import IndividualDetailPage from "./Pages/IndividualDetailPage";
 import IndividualReportPage from "./Pages/IndividualReportPage";
 import { IndividualNoticePage } from "./Pages/IndividualNoticePage";
+import { NoticePostingPage } from "./Pages/NoticePostingPage";
 const RoutersManagement = () => {
   return (
     <Router>
@@ -22,6 +23,7 @@ const RoutersManagement = () => {
         <Route path="/noticeBoard" element={<NoticePage />} />
         <Route path="/noticeBoard/:id" element={<IndividualNoticePage />} />
         <Route path="/memberDetail/:id" element={<IndividualDetailPage />} />
+        <Route path="/noticeBoard/post" element={<NoticePostingPage />} />
       </Routes>
     </Router>
   );

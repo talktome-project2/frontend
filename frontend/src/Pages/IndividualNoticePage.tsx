@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
 // Styled components
 const PageWrapper = styled.div`
   padding: 40px;
@@ -59,11 +60,12 @@ const StyledButton = styled.button`
 
 export const IndividualNoticePage = () => {
   const { id } = useParams();
-  const [notice, setNotice] = useState(null);
+  const [notice, setNotice] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [ReportId, setReportId] = useState();
-  const [title, setTitle] = useState();
-  const [message, setMessage] = useState();
+  const [reportId, setReportId] = useState<number | undefined>();
+  const [title, setTitle] = useState<string | undefined>();
+  const [message, setMessage] = useState<string | undefined>();
+
   useEffect(() => {
     const fetchNotice = async () => {
       try {
@@ -89,10 +91,51 @@ export const IndividualNoticePage = () => {
 
   if (!notice) return <PageWrapper>로딩 중...</PageWrapper>;
 
+  const handleSave = async () => {
+    const confirmSave = window.confirm("저장하시겠습니까?");
+    if (!confirmSave) return;
+    console.log("저장 버튼이 클릭되었습니다."); // 버튼 클릭 확인
+
+    const newOpenValue = isOpen ? 1 : 0; // 체크박스 상태에 맞춰 open 값 결정
+
+    try {
+      const response = await fetch(
+        `http://3.37.213.52:3000/manager/notice/update/${reportId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            content: message,
+            open: newOpenValue,
+          }),
+        }
+      );
+
+      // 응답 상태 확인
+      console.log("응답 상태:", response.status); // 응답 상태 코드 확인
+      const result = await response.json(); // 응답 결과 확인
+      console.log("응답 내용:", result); // 응답 내용 콘솔에 출력
+
+      if (response.ok) {
+        // 응답이 정상적으로 온 경우
+        alert("공지사항이 성공적으로 저장되었습니다.");
+      } else {
+        // 응답이 실패한 경우
+        alert("저장 실패. 서버 오류가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error("저장 중 에러 발생:", error);
+      alert("저장 중 에러 발생! 다시 시도해주세요.");
+    }
+  };
+
   return (
     <PageWrapper>
       <Field>
-        <Label>id :</Label> {ReportId}
+        <Label>id :</Label> {reportId}
       </Field>
 
       <Field>
@@ -114,8 +157,8 @@ export const IndividualNoticePage = () => {
       </CheckboxLabel>
 
       <ButtonWrapper>
-        <StyledButton>창닫기</StyledButton>
-        <StyledButton>저장</StyledButton>
+        <StyledButton onClick={() => window.close()}>창닫기</StyledButton>
+        <StyledButton onClick={handleSave}>저장</StyledButton>
       </ButtonWrapper>
     </PageWrapper>
   );
