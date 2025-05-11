@@ -61,7 +61,7 @@ const BlockedMe = ({ SearchId }: Props) => {
 
         if (Array.isArray(result)) {
           const formattedRows = result.map((item, index) => ({
-            id: item.id, // ✅ member_id가 없으면 `temp-index` 사용
+            id: item.id,
             email: item.email,
           }));
           setRows(formattedRows);

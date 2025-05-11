@@ -13,6 +13,8 @@ import styled from "styled-components";
 import { useRecoilValueLoadable } from "recoil";
 import { getNoticeList } from "../../Recoils/selectors/setNotice";
 import { NoticeType } from "../../Recoils/atoms/NoticeAtom";
+import { useNavigate } from "react-router-dom";
+
 const DBBoard = styled.div`
   width: 95%;
   margin: 0 auto;
@@ -20,8 +22,31 @@ const DBBoard = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const handleToggleNotice = async (id: any) => {
+  const confirmed = window.confirm("공지 상태를 변경하겠습니까?");
+  if (!confirmed) return;
+  try {
+    const response = await fetch(
+      `http://3.37.213.52:3000/manager/notice/toggle/open/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
+    if (response.ok) {
+      alert("공지 상태가 변경되었습니다!");
+    } else {
+      alert("변경 실패");
+    }
+  } catch (error) {
+    console.error("공지 변경 중 오류 발생:", error);
+  }
+};
 const NoticeTable = () => {
+  const navigate = useNavigate();
   const reportedLoadable = useRecoilValueLoadable(getNoticeList);
   if (reportedLoadable.state === "loading") return <div>로딩 중...</div>;
   if (reportedLoadable.state === "hasError") return <div>에러 발생</div>;
@@ -53,12 +78,24 @@ const NoticeTable = () => {
               <TableCell>{item.open}</TableCell>
               <TableCell>{item.created_at}</TableCell>
               <TableCell>
-                <Button variant="outlined" color="primary" size="small">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  onClick={() => {
+                    window.open(`/noticeBoard/${item.id}`, "_blank");
+                  }}
+                >
                   상세보기
                 </Button>
               </TableCell>
               <TableCell>
-                <Button variant="outlined" color="primary" size="small">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  onClick={() => handleToggleNotice(item.id)}
+                >
                   적용하기
                 </Button>
               </TableCell>

@@ -26,7 +26,6 @@ const DBPage = () => {
       <PageSpace />
       <ContentWrapper>
         <DBSearchBar />
-        <TotalMember />
         <MemberDBTable />
       </ContentWrapper>
     </PageContainer>

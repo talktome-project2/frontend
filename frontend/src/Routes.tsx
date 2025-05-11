@@ -7,6 +7,8 @@ import LandingPage from "./Pages/LandingPage";
 import ReportPage from "./Pages/ReportPage";
 import NoticePage from "./Pages/NoticePage";
 import IndividualDetailPage from "./Pages/IndividualDetailPage";
+import IndividualReportPage from "./Pages/IndividualReportPage";
+import { IndividualNoticePage } from "./Pages/IndividualNoticePage";
 const RoutersManagement = () => {
   return (
     <Router>
@@ -16,8 +18,9 @@ const RoutersManagement = () => {
         <Route path="/memberDB" element={<DBPage />} />
         <Route path="/memberDetail" element={<DetailPage />} />
         <Route path="/reports" element={<ReportPage />} />
-        <Route path="/reports/:id" element={<IndividualDetailPage />} />
+        <Route path="/reports/:id" element={<IndividualReportPage />} />
         <Route path="/noticeBoard" element={<NoticePage />} />
+        <Route path="/noticeBoard/:id" element={<IndividualNoticePage />} />
         <Route path="/memberDetail/:id" element={<IndividualDetailPage />} />
       </Routes>
     </Router>
