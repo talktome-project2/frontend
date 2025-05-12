@@ -8,10 +8,6 @@ const PageWrapper = styled.div`
   font-family: sans-serif;
 `;
 
-const Field = styled.div`
-  margin-bottom: 20px;
-`;
-
 const Label = styled.label`
   font-weight: bold;
   font-size: 1.1rem;
@@ -58,6 +54,35 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledInput = styled.input`
+  width: 600px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 4px;
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 600px;
+  height: 200px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 4px;
+  resize: vertical;
+`;
+const Field = styled.div`
+  margin-bottom: 30px;
+  position: relative; /* 라벨을 상대적으로 배치하기 위한 기준 */
+`;
+
+const TopLeftLabel = styled.label`
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+`;
 export const IndividualNoticePage = () => {
   const { id } = useParams();
   const [notice, setNotice] = useState<any>(null);
@@ -65,6 +90,9 @@ export const IndividualNoticePage = () => {
   const [reportId, setReportId] = useState<number | undefined>();
   const [title, setTitle] = useState<string | undefined>();
   const [message, setMessage] = useState<string | undefined>();
+  const [originalOpen, setOriginalOpen] = useState<boolean | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     const fetchNotice = async () => {
@@ -76,10 +104,12 @@ export const IndividualNoticePage = () => {
         if (result.result === "ok" && result.data.length > 0) {
           const detail = result.data[0];
           setNotice(detail);
-          setIsOpen(detail.open === 1);
+          const openValue = detail.open === 1;
+          setIsOpen(openValue);
+          setOriginalOpen(openValue);
           setReportId(detail.id);
           setTitle(detail.title);
-          setMessage(detail.message);
+          setMessage(detail.content);
         }
       } catch (error) {
         console.error("공지사항 상세 정보를 불러오는 중 에러 발생:", error);
@@ -94,9 +124,11 @@ export const IndividualNoticePage = () => {
   const handleSave = async () => {
     const confirmSave = window.confirm("저장하시겠습니까?");
     if (!confirmSave) return;
-    console.log("저장 버튼이 클릭되었습니다."); // 버튼 클릭 확인
 
-    const newOpenValue = isOpen ? 1 : 0; // 체크박스 상태에 맞춰 open 값 결정
+    if (originalOpen !== undefined && isOpen === originalOpen) {
+      alert("변경된 내용이 없습니다.");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -107,23 +139,19 @@ export const IndividualNoticePage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            title,
-            content: message,
-            open: newOpenValue,
+            title: title,
+            content: message, // 기존 message를 content로 전송
+            open: isOpen ? 1 : 0,
           }),
         }
       );
 
-      // 응답 상태 확인
-      console.log("응답 상태:", response.status); // 응답 상태 코드 확인
-      const result = await response.json(); // 응답 결과 확인
-      console.log("응답 내용:", result); // 응답 내용 콘솔에 출력
+      const result = await response.json();
 
       if (response.ok) {
-        // 응답이 정상적으로 온 경우
         alert("공지사항이 성공적으로 저장되었습니다.");
+        setOriginalOpen(isOpen); // 업데이트된 상태 저장
       } else {
-        // 응답이 실패한 경우
         alert("저장 실패. 서버 오류가 발생했습니다.");
       }
     } catch (error) {
@@ -135,16 +163,29 @@ export const IndividualNoticePage = () => {
   return (
     <PageWrapper>
       <Field>
-        <Label>id :</Label> {reportId}
+        <Label>ID :</Label>
+        <StyledInput
+          type="number"
+          value={reportId ?? ""}
+          onChange={(e) => setReportId(Number(e.target.value))}
+        />
       </Field>
 
       <Field>
-        <Label>주제 :</Label> {title}
+        <Label>주제 :</Label>
+        <StyledInput
+          type="text"
+          value={title ?? ""}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </Field>
 
       <Field>
         <Label>내용 :</Label>
-        <MessageBox>{message}</MessageBox>
+        <StyledTextarea
+          value={message ?? ""}
+          onChange={(e) => setMessage(e.target.value)}
+        />
       </Field>
 
       <CheckboxLabel>

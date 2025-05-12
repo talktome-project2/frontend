@@ -3,7 +3,7 @@ import { atom } from "recoil";
 export type NoticeType = {
   id: number;
   title: String;
-  message: String;
+  content: String;
   open: number;
   created_at: String;
 };

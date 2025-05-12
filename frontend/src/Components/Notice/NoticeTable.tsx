@@ -30,14 +30,12 @@ const handleToggleNotice = async (id: any) => {
       `http://3.37.213.52:3000/manager/notice/toggle/open/${id}`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
 
     if (response.ok) {
       alert("공지 상태가 변경되었습니다!");
+      window.location.reload();
     } else {
       alert("변경 실패");
     }
@@ -46,11 +44,11 @@ const handleToggleNotice = async (id: any) => {
   }
 };
 const NoticeTable = () => {
-  const navigate = useNavigate();
   const reportedLoadable = useRecoilValueLoadable(getNoticeList);
   if (reportedLoadable.state === "loading") return <div>로딩 중...</div>;
   if (reportedLoadable.state === "hasError") return <div>에러 발생</div>;
   const data = reportedLoadable.contents;
+  console.log("data", data);
   return (
     <DBBoard>
       <Typography
@@ -74,7 +72,7 @@ const NoticeTable = () => {
             <TableRow key={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell>{item.title}</TableCell>
-              <TableCell>{item.message}</TableCell>
+              <TableCell>{item.content}</TableCell>
               <TableCell>{item.open}</TableCell>
               <TableCell>{item.created_at}</TableCell>
               <TableCell>

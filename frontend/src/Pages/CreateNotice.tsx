@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-const formLabel = styled.span``;
-
-const input = styled.input``;
 
 const CheckboxWrapper = styled.label`
   display: flex;
@@ -42,10 +39,10 @@ const CheckboxInput = styled.input`
   }
 `;
 
-const CreateNotice = () => {
+export const CreateNotice = () => {
   const [checked, setChecked] = useState(false);
 
-  const handleCheckboxChange = (e:any) => {
+  const handleCheckboxChange = (e: any) => {
     setChecked(e.target.checked);
   };
   return (

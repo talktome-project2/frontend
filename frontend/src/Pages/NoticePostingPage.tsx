@@ -85,7 +85,6 @@ export const NoticePostingPage = () => {
     },
   });
 
-  // 🔔 서버로 전송하는 함수
   const handleClick: SubmitHandler<FormData> = async (data) => {
     const requestData = {
       title: data.title,
