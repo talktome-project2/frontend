@@ -125,7 +125,7 @@ const IndividualReportPage = () => {
           </StyledButton>
         ) : null}
 
-        <StyledButton>닫기</StyledButton>
+        <StyledButton onClick={() => navigate(`/reports`)}>닫기</StyledButton>
       </ContentContainer>
     </PageContainer>
   );

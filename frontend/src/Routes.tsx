@@ -10,6 +10,7 @@ import IndividualDetailPage from "./Pages/IndividualDetailPage";
 import IndividualReportPage from "./Pages/IndividualReportPage";
 import { IndividualNoticePage } from "./Pages/IndividualNoticePage";
 import { NoticePostingPage } from "./Pages/NoticePostingPage";
+import { CreateNotice } from "./Pages/CreateNotice";
 const RoutersManagement = () => {
   return (
     <Router>
