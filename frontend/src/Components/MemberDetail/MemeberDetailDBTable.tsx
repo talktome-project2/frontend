@@ -91,7 +91,9 @@ const MemberDetailDBTable = ({ SearchId }: Props) => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={() => navigate(`/memberDetail/${params.row.id}`)}
+          onClick={() =>
+            window.open(`/memberDetail/${params.row.id}`, "_blank")
+          }
         >
           상세
         </Button>

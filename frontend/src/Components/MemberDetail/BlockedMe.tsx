@@ -90,7 +90,9 @@ const BlockedMe = ({ SearchId }: Props) => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={() => navigate(`/memberDetail/${params.row.id}`)}
+          onClick={() =>
+            window.open(`/memberDetail/${params.row.id}`, "_blank")
+          }
         >
           상세
         </Button>
@@ -104,7 +106,7 @@ const BlockedMe = ({ SearchId }: Props) => {
         variant="h6"
         sx={{ textAlign: "center", fontWeight: "bold", mb: 2 }}
       >
-        내가 차단한 사람 (총 {rows.length}명)
+        나를 차단한 사람 (총 {rows.length}명)
       </Typography>
 
       <DBBoard>

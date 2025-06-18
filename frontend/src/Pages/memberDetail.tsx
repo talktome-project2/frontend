@@ -21,6 +21,7 @@ const PageSpace = styled.div`
   display: flex;
   margin-left: 300px;
 `;
+
 const DetailPage = () => {
   return (
     <PageContainer>

@@ -35,6 +35,7 @@ const MemberSearchBar = () => {
       id: data.id,
     }));
   };
+
   return (
     <SearchContainer>
       <form onSubmit={handleSubmit(onSubmit)}>

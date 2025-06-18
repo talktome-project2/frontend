@@ -81,7 +81,9 @@ const BlockedByMe = ({ SearchId }: Props) => {
           variant="contained"
           color="primary"
           size="small"
-          onClick={() => navigate(`/friend/${params.row.id}`)}
+          onClick={() => {
+            window.open(`/friend/${params.row.id}`, "_blank");
+          }}
         >
           상세
         </Button>
