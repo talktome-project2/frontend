@@ -6,7 +6,18 @@ export const allMemberInfo = selector<Member[]>({
   key: "allMemberInfo",
   get: async ({ get }) => {
     try {
-      const response = await fetch("http://3.37.213.52:3000/manager/feed");
+      const numberData = await fetch(
+        "http://3.37.213.52:3000/manager/count/member"
+      );
+      if (!numberData.ok) {
+        throw new Error(`HTTP error! status: ${numberData.status}`);
+      }
+      const numberJson = await numberData.json();
+      const totalNumber = numberJson.data[0].total;
+
+      const response = await fetch(
+        `http://3.37.213.52:3000/manager/feed?size=${totalNumber}`
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

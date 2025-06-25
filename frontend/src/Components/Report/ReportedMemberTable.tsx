@@ -27,7 +27,6 @@ export const handleApply = async (id: any) => {
   if (!confirmed) return;
   try {
     const response = await fetch(
-      
       `http://3.37.213.52:3000/manager/apply/notify/${id}`,
       {
         method: "DELETE",
