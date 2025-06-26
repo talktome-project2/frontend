@@ -4,9 +4,9 @@ import { selector } from "recoil";
 export const getReportedPerson = selector<reportedPersonType[]>({
   key: "getReportedPerson",
   get: async () => {
-    const response = await fetch(
-      "http://3.37.213.52:3000/manager/notify/index?page=1&size=20"
-    );
+    const response = await fetch("/manager/notify/index?page=1&size=20", {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error("데이터 불러오기에 실패했습니다");

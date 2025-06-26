@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export const allMemberInfo = selector<Member[]>({
   key: "allMemberInfo",
-  get: async ({ get }) => {
+  get: async ({ }) => {
     try {
       const numberData = await fetch(
         "http://3.37.213.52:3000/manager/count/member"
